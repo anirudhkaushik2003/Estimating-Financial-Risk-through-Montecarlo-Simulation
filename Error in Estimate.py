@@ -14,8 +14,11 @@ class MonteCarlo():
     def calNetProfit(self, estimated_cost ):
         self.avgSellingPrice_avg_units() # init variables
         self.estimated_cost = estimated_cost
-        self.net_profit = self.avg_units*(self.avg_price- self.estimated_cost) - self.fixedCosts
+        self.estimated_net_profit = self.avg_units*(self.avg_price- self.estimated_cost) - self.fixedCosts
 
+    def calError(self, true_price):
+        self.true_price = true_price
+        self.error = abs(self.estimated_net_profit-self.true_price)/self.true_price
 
 
 
@@ -24,9 +27,11 @@ normal = [75000, 10.00]
 hot = [100000, 8.00]
 monte_carlo = MonteCarlo(slow, normal, hot, 120000)
 monte_carlo.calNetProfit(6.50)
+monte_carlo.calError(93000)
 print("Average price: ", monte_carlo.avg_price)
 print("Average number of units sold: ", monte_carlo.avg_units)
-print("Net profit: ", monte_carlo.net_profit)
+print("Net profit: ", monte_carlo.estimated_net_profit)
+print("Error in Estimate: ", monte_carlo.error *100, "%")
 
 
 
